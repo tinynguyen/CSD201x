@@ -62,6 +62,20 @@ public class Main {
 
     /*You should insert code for sorting here, you are going to sort the list of
         loaded files named "files" ascending by file size.*/
+    int min;
+    for (int i = 0; i < files.length - 1; i++) {
+      min = i;
+      for (int j = i + 1; j < files.length; j++) {
+        if (files[j].getSize() < files[min].getSize()) {
+          min = j;
+        }
+      }
+      if (min != i) {
+        MyFile temp = files[i];
+        files[i] = files[min];
+        files[min] = temp;
+      }
+    }
   }
 
   //sort the list of files ascending by size (use insertion sort)
