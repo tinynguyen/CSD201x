@@ -132,45 +132,77 @@ public class Main {
       System.out.println("3. Search files");
       System.out.println("0. Exit");
       System.out.print("Enter your choice: ");
+      int choise = 0;
+      boolean validate = true;
 
-      int choose = s.nextInt();
-      s.nextLine();
-      System.out.print("Enter a folder: ");
+      while (validate) {
+        if (s.hasNextInt()) {
+          choise = s.nextInt();
+          s.nextLine();
+          validate = false;
+        } else {
+          System.err.print("Please input number: ");
+        }
+      }
 
-      switch (choose) {
+      validate = true;
+      while (validate) {
+        if (choise <= 3 && choise >= 0) {
+          validate = false;
+        } else {
+          System.err.println("Input number is invalid");
+          System.out.print("Enter your choice again: ");
+          choise = s.nextInt();
+          s.nextLine();
+        }
+      }
+
+      switch (choise) {
         case 1:
-          String folder = s.nextLine();
-          main.loadFiles(folder);
-          main.list(files);
+          System.out.print("Enter a folder: ");
+          validate = true;
+          while (validate) {
+            String folder = s.nextLine();
+            try {
+              main.loadFiles(folder);
+              main.list(files);
+              validate = false;
+            } catch (NullPointerException ex) {
+              System.err.println("Directory is not exist");
+              System.out.print("Enter a folder again: ");
+            }
+          }
           break;
         case 2:
-          SortType st;
-          System.out.println("Sort the list of files by using");
-          System.out.println("1. Selection Sort");
-          System.out.println("2. Inserttion Sort");
-          System.out.print("Your choise: ");
-          int sortChoise = s.nextInt();
-          s.nextLine();
-          switch (sortChoise) {
-            case 1:
-              st = SortType.SELECTIONSORT;
-              main.sort(st);
-              break;
-            case 2:
-              st = SortType.INSERTTIONSORT;
-              main.sort(st);
-              break;
+          try {
+            SortType st;
+            System.out.println("Sort the list of files by using");
+            System.out.println("1. Selection Sort");
+            System.out.println("2. Inserttion Sort");
+            System.out.print("Your choise: ");
+            int sortChoise = s.nextInt();
+            s.nextLine();
+            switch (sortChoise) {
+              case 1:
+                st = SortType.SELECTIONSORT;
+                main.sort(st);
+                break;
+              case 2:
+                st = SortType.INSERTTIONSORT;
+                main.sort(st);
+                break;
+            }
+          } catch (NullPointerException ex) {
+            main.list(files);
           }
           break;
         case 3:
           String keyword = s.nextLine();
           main.searchFile(keyword);
           break;
-        default:
+        case 0:
           running = false;
-          break;
       }
-
     }
   }
 }
