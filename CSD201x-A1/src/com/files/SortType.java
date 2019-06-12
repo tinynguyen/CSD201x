@@ -10,7 +10,7 @@ package com.files;
 
 /**
  *
- * @author TrongDuyDao
+ * @author tiny
  */
 public enum SortType {
     SELECTIONSORT, INSERTTIONSORT
