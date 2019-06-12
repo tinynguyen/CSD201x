@@ -7,6 +7,7 @@ package com.files;
  */
 import java.io.File;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -121,6 +122,20 @@ public class Main {
     list(foundFiles);
   }
 
+  public static int validateInputNumbers(boolean validate, int choise) {
+    Scanner s = new Scanner(System.in);
+    while (validate) {
+      if (s.hasNextInt()) {
+        choise = s.nextInt();
+        validate = false;
+      } else {
+        System.err.print("Please input number: ");
+      }
+      s.nextLine();
+    }
+    return choise;
+  }
+
   public static void main(String[] args) {
     Main main = new Main();
     boolean running = true;
@@ -135,15 +150,7 @@ public class Main {
       int choise = 0;
       boolean validate = true;
 
-      while (validate) {
-        if (s.hasNextInt()) {
-          choise = s.nextInt();
-          s.nextLine();
-          validate = false;
-        } else {
-          System.err.print("Please input number: ");
-        }
-      }
+      choise = validateInputNumbers(validate, choise);
 
       validate = true;
       while (validate) {
@@ -152,8 +159,7 @@ public class Main {
         } else {
           System.err.println("Input number is invalid");
           System.out.print("Enter your choice again: ");
-          choise = s.nextInt();
-          s.nextLine();
+          choise = validateInputNumbers(validate, choise);
         }
       }
 
@@ -180,8 +186,20 @@ public class Main {
             System.out.println("1. Selection Sort");
             System.out.println("2. Inserttion Sort");
             System.out.print("Your choise: ");
-            int sortChoise = s.nextInt();
-            s.nextLine();
+            int sortChoise = 0;
+            validate = true;
+            sortChoise = validateInputNumbers(validate, sortChoise);
+
+            validate = true;
+            while (validate) {
+              if (sortChoise == 1 || sortChoise == 2) {
+                validate = false;
+              } else {
+                System.err.println("Input number is invalid");
+                System.out.print("Enter your choice again: ");
+                sortChoise = validateInputNumbers(validate, sortChoise);
+              }
+            }
             switch (sortChoise) {
               case 1:
                 st = SortType.SELECTIONSORT;
