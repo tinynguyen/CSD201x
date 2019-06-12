@@ -81,9 +81,17 @@ public class Main {
 
   //sort the list of files ascending by size (use insertion sort)
   public void insertionSort() {
-    //do nothing if list of files is empty
     /*You should insert code for sorting here, you are going to sort the list of
         loaded files named "files" ascending by file size.*/
+    int pos = 0;
+    MyFile temp;
+    for (int i = 1; i < files.length; i++) {
+      temp = files[i];
+      for (pos = i; (pos > 0) && (files[pos - 1].getSize() > temp.getSize()); pos--) {
+        files[pos] = files[pos - 1];
+      }
+      files[pos] = temp;
+    }
   }
 
   //sort and output sorted list of text files
