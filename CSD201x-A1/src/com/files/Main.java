@@ -5,6 +5,7 @@ package com.files;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -16,7 +17,7 @@ import java.util.Scanner;
 public class Main {
 
   //contains a list of MyFile
-  private MyFile[] files;
+  private static MyFile[] files;
 
   //ctor
   public Main() {
@@ -32,6 +33,15 @@ public class Main {
 
   public void loadFiles(String folder, List<MyFile> listFiles) {
     /*insert the code for listing all text files under given folder here*/
+    File file = new File(folder);
+    File[] files = file.listFiles();
+    for (File f : files) {
+      if (f.isFile()) {
+        listFiles.add(new MyFile(f.getName(), f.length(), f.getAbsolutePath()));
+      } else if (f.isDirectory()) {
+        loadFiles(f.getPath(), listFiles);
+      }
+    }
   }
 
   //list information of all loaded files
@@ -117,6 +127,7 @@ public class Main {
         case 1:
           String folder = s.nextLine();
           main.loadFiles(folder);
+          main.list(files);
           break;
         case 2:
           SortType st;
