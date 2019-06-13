@@ -183,6 +183,51 @@ public class Main {
     list(foundFiles);
   }
 
+  // output content of the files
+  public void viewFile(String title) throws IOException {
+    List<MyFile> textFile = new ArrayList<>();
+    for (MyFile f : files) {
+      if (f.getName().toLowerCase().endsWith(".txt")) {
+        textFile.add(f);
+      }
+    }
+    boolean found = false;
+    for (MyFile f : textFile) {
+      if (f.getName().equals(title + ".txt")) {
+        FileReader fr = null;
+        LineNumberReader lnr = null;
+        String str;
+
+        try {
+          // create new reader
+          fr = new FileReader(f.getFullPath());
+          lnr = new LineNumberReader(fr);
+
+          System.out.println("Content file:");
+          // read lines till the end of the stream
+          while ((str = lnr.readLine()) != null) {
+            System.out.println(str);
+          }
+        } catch (Exception ex) {
+          // if any error occurs
+          ex.printStackTrace();
+        } finally {
+          // closes the stream and releases system resources
+          if (fr != null) {
+            fr.close();
+          }
+          if (lnr != null) {
+            lnr.close();
+          }
+        }
+        found = true;
+      }
+    }
+    if (!found) {
+      System.out.println('"' + title + '"' + " is not exist in directory!");
+    }
+  }
+
   // validate choise value of menu
   public static int validateInputNumbers(boolean validate, int choise) {
     Scanner s = new Scanner(System.in);
@@ -203,11 +248,16 @@ public class Main {
     boolean running = true;
     Scanner s = new Scanner(System.in);
     while (running) {
-      System.out.println("Menu");
-      System.out.println("1. Load files");
-      System.out.println("2. Sort files");
-      System.out.println("3. Search files");
-      System.out.println("0. Exit");
+      System.out.println("|--------------------|");
+      System.out.println("|     CSD201x-A1     |");
+      System.out.println("|--------------------|");
+      System.out.println("|        Menu        |");
+      System.out.println("|   1. Load files    |");
+      System.out.println("|   2. Sort files    |");
+      System.out.println("|   3. Search files  |");
+      System.out.println("|   4. View files    |");
+      System.out.println("|   0. Exit          |");
+      System.out.println("|--------------------|");
       System.out.print("Enter your choice: ");
       int choise = 0;
       boolean validate = true;
@@ -216,7 +266,7 @@ public class Main {
 
       validate = true;
       while (validate) {
-        if (choise <= 3 && choise >= 0) {
+        if (choise <= 4 && choise >= 0) {
           validate = false;
         } else {
           System.err.println("Input number is invalid");
@@ -305,6 +355,26 @@ public class Main {
             } else {
               System.err.println("Keyword must be required!");
               System.out.print("Enter any keyword again: ");
+            }
+          }
+          break;
+        // view files option
+        case 4:
+          System.out.print("Enter any title of file: ");
+          String title = "";
+          validate = true;
+          while (validate) {
+            title = s.nextLine();
+            if (!title.trim().equals("")) {
+              try {
+                main.viewFile(title);
+                validate = false;
+              } catch (IOException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+              }
+            } else {
+              System.err.println("Title must be required!");
+              System.out.print("Enter any title again: ");
             }
           }
           break;
