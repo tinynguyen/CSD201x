@@ -19,7 +19,6 @@ import java.util.logging.Logger;
  *
  * @author tiny
  */
-
 public class Main {
 
   // contains a list of MyFile
@@ -95,8 +94,29 @@ public class Main {
   }
 
   // sort the list of files ascending by size (use quick sort)
-  public void quickSort() {
-    System.out.println("Quick sort");
+  public void quickSort(int left, int right) {
+    if (left >= right) {
+      return;
+    }
+    MyFile pivot = files[(left + right) / 2];
+    int i = left, j = right;
+    do {
+      while (files[i].getSize() < pivot.getSize()) {
+        i++;
+      }
+      while (files[j].getSize() > pivot.getSize()) {
+        j--;
+      }
+      if (i <= j) {
+        MyFile temp = files[i];
+        files[i] = files[j];
+        files[j] = temp;
+        i++;
+        j--;
+      }
+    } while (i < j);
+    quickSort(left, j);
+    quickSort(i, right);
   }
 
   // sort and output sorted list of text files
@@ -105,9 +125,8 @@ public class Main {
       insertionSort();
     } else if (st == SortType.SELECTIONSORT) {
       selectionSort();
-    } else if (st == SortType.QUICKSORT)
-    {
-      quickSort();
+    } else if (st == SortType.QUICKSORT) {
+      quickSort(0, files.length - 1);
     }
     // output result after sorting
     list(files);
