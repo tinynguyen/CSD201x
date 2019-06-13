@@ -39,8 +39,8 @@ public class Main {
   public void loadFiles(String folder, List<MyFile> listFiles) {
     /* insert the code for listing all text files under given folder here */
     File file = new File(folder);
-    File[] files = file.listFiles();
-    for (File f : files) {
+    File[] allFiles = file.listFiles();
+    for (File f : allFiles) {
       if (f.isFile()) {
         listFiles.add(new MyFile(f.getName(), f.length(), f.getAbsolutePath()));
       } else if (f.isDirectory()) {
@@ -121,12 +121,20 @@ public class Main {
 
   // sort and output sorted list of text files
   public void sort(SortType st) {
-    if (st == SortType.INSERTTIONSORT) {
-      insertionSort();
-    } else if (st == SortType.SELECTIONSORT) {
-      selectionSort();
-    } else if (st == SortType.QUICKSORT) {
-      quickSort(0, files.length - 1);
+    if (null != st) {
+      switch (st) {
+        case INSERTTIONSORT:
+          insertionSort();
+          break;
+        case SELECTIONSORT:
+          selectionSort();
+          break;
+        case QUICKSORT:
+          quickSort(0, files.length - 1);
+          break;
+        default:
+          break;
+      }
     }
     // output result after sorting
     list(files);
@@ -155,8 +163,7 @@ public class Main {
         }
       }
 
-    } catch (Exception e) {
-      // if any error occurs
+    } catch (IOException ex) {
       return false;
     } finally {
       // closes the stream and releases system resources
@@ -193,38 +200,47 @@ public class Main {
     }
     boolean found = false;
     for (MyFile f : textFile) {
-      if (f.getName().equals(title + ".txt")) {
-        FileReader fr = null;
-        LineNumberReader lnr = null;
-        String str;
-
-        try {
-          // create new reader
-          fr = new FileReader(f.getFullPath());
-          lnr = new LineNumberReader(fr);
-
-          System.out.println("Content file:");
-          // read lines till the end of the stream
-          while ((str = lnr.readLine()) != null) {
-            System.out.println(str);
-          }
-        } catch (Exception ex) {
-          // if any error occurs
-          ex.printStackTrace();
-        } finally {
-          // closes the stream and releases system resources
-          if (fr != null) {
-            fr.close();
-          }
-          if (lnr != null) {
-            lnr.close();
-          }
-        }
+      if (f.getName().equals(title)) {
+        readContent(f);
         found = true;
+      } else {
+        if (f.getName().equals(title + ".txt")) {
+          readContent(f);
+          found = true;
+        }
       }
     }
     if (!found) {
       System.out.println('"' + title + '"' + " is not exist in directory!");
+    }
+  }
+
+  public void readContent(MyFile f) throws IOException {
+    FileReader fr = null;
+    LineNumberReader lnr = null;
+    String str;
+
+    try {
+      // create new reader
+      fr = new FileReader(f.getFullPath());
+      lnr = new LineNumberReader(fr);
+
+      System.out.println("Content file:");
+      // read lines till the end of the stream
+      while ((str = lnr.readLine()) != null) {
+        System.out.println(str);
+      }
+    } catch (IOException ex) {
+      // if any error occurs
+      ex.printStackTrace();
+    } finally {
+      // closes the stream and releases system resources
+      if (fr != null) {
+        fr.close();
+      }
+      if (lnr != null) {
+        lnr.close();
+      }
     }
   }
 
