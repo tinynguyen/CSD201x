@@ -6,10 +6,15 @@ package com.files;
  * and open the template in the editor.
  */
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -38,7 +43,9 @@ public class Main {
     File[] files = file.listFiles();
     for (File f : files) {
       if (f.isFile()) {
-        listFiles.add(new MyFile(f.getName(), f.length(), f.getAbsolutePath()));
+        if (f.getName().toLowerCase().endsWith(".txt") || f.getName().toLowerCase().endsWith(".doc") || f.getName().toLowerCase().endsWith(".docx")) {
+          listFiles.add(new MyFile(f.getName(), f.length(), f.getAbsolutePath()));
+        }
       } else if (f.isDirectory()) {
         loadFiles(f.getPath(), listFiles);
       }
@@ -106,7 +113,7 @@ public class Main {
   }
 
   //return true if given MyFile contains given keyword, otherwise return false
-  public boolean searchFile(MyFile mf, String keyword) {
+  public boolean searchFile(MyFile mf, String keyword) throws IOException {
     if (!mf.getName().toLowerCase().endsWith(".txt")) {
       return false;
     }
@@ -114,11 +121,42 @@ public class Main {
     /*You can use LineNumberReader to read the content of given mf and check out if
         the content of given mf contains keyword. This function should return true if 
         the searching is found, otherwise return false*/
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+
+    FileReader fr = null;
+    LineNumberReader lnr = null;
+    String str;
+
+    try {
+      // create new reader
+      fr = new FileReader(mf.getFullPath());
+      lnr = new LineNumberReader(fr);
+
+      // read lines till the end of the stream
+      while ((str = lnr.readLine()) != null) {
+
+        // check keyword in str
+        if (!str.contains(keyword)) {
+          return false;
+        }
+      }
+
+    } catch (Exception e) {
+      // if any error occurs
+      return false;
+    } finally {
+      // closes the stream and releases system resources
+      if (fr != null) {
+        fr.close();
+      }
+      if (lnr != null) {
+        lnr.close();
+      }
+    }
+    return true;
   }
 
   //output information of all files which content has given keyword
-  public void searchFile(String keyword) {
+  public void searchFile(String keyword) throws IOException {
     //save all files which matched given keyword to the list and output the list
     List<MyFile> listFiles = new ArrayList<>();
     for (MyFile f : files) {
@@ -223,8 +261,27 @@ public class Main {
           }
           break;
         case 3:
-          String keyword = s.nextLine();
-          main.searchFile(keyword);
+          System.out.print("Enter any keyword to search: ");
+          String keyword = "";
+          validate = true;
+          while (validate) {
+            keyword = s.nextLine();
+            if (!keyword.trim().equals("")) {
+              try {
+                main.searchFile(keyword);
+                validate = false;
+
+              } catch (NullPointerException ex) {
+                System.err.println("Please load files before search!");
+                break;
+              } catch (IOException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+              }
+            } else {
+              System.err.println("Keyword must be required!");
+              System.out.print("Enter any keyword again: ");
+            }
+          }
           break;
         case 0:
           running = false;
