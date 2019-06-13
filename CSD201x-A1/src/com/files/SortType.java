@@ -13,5 +13,5 @@ package com.files;
  * @author tiny
  */
 public enum SortType {
-    SELECTIONSORT, INSERTTIONSORT
+    SELECTIONSORT, INSERTTIONSORT, QUICKSORT
 }

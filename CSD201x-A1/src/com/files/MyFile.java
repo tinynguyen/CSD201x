@@ -5,8 +5,6 @@ package com.files;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
  
 import java.io.Serializable;
 
@@ -16,12 +14,12 @@ import java.io.Serializable;
  */
 public class MyFile implements Serializable {
     
-    //contains information of a File
-    
+    // contains information of a File
     private String name;
     private long size;
     private String fullPath;
 
+    // contructor
     public MyFile() {
     }
 
@@ -31,6 +29,7 @@ public class MyFile implements Serializable {
         this.fullPath = fullPath;
     }
 
+    // gettter - setter
     public String getName() {
         return name;
     }
@@ -59,7 +58,5 @@ public class MyFile implements Serializable {
     public String toString() {
         return String.format("%-20s%-10d", name, size);
     }
-    
-    
     
 }

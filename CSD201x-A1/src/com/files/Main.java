@@ -10,7 +10,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -20,17 +19,18 @@ import java.util.logging.Logger;
  *
  * @author tiny
  */
+
 public class Main {
 
-  //contains a list of MyFile
+  // contains a list of MyFile
   private static MyFile[] files;
 
-  //ctor
+  // contructor
   public Main() {
     files = null;
   }
 
-  //get information of all text files under given folder name
+  // get information of all text files under given folder name
   public void loadFiles(String folder) {
     List<MyFile> listFiles = new ArrayList<>();
     loadFiles(folder, listFiles);
@@ -38,21 +38,19 @@ public class Main {
   }
 
   public void loadFiles(String folder, List<MyFile> listFiles) {
-    /*insert the code for listing all text files under given folder here*/
+    /* insert the code for listing all text files under given folder here */
     File file = new File(folder);
     File[] files = file.listFiles();
     for (File f : files) {
       if (f.isFile()) {
-        if (f.getName().toLowerCase().endsWith(".txt") || f.getName().toLowerCase().endsWith(".doc") || f.getName().toLowerCase().endsWith(".docx")) {
-          listFiles.add(new MyFile(f.getName(), f.length(), f.getAbsolutePath()));
-        }
+        listFiles.add(new MyFile(f.getName(), f.length(), f.getAbsolutePath()));
       } else if (f.isDirectory()) {
         loadFiles(f.getPath(), listFiles);
       }
     }
   }
 
-  //list information of all loaded files
+  // list information of all loaded files
   public void list(MyFile[] files) {
     if (files != null && files.length > 0) {
       //output heading
@@ -65,11 +63,8 @@ public class Main {
     }
   }
 
-  //sort the list of files ascending by size (use selection sort)
+  // sort the list of files ascending by size (use selection sort)
   public void selectionSort() {
-
-    /*You should insert code for sorting here, you are going to sort the list of
-        loaded files named "files" ascending by file size.*/
     int min;
     for (int i = 0; i < files.length - 1; i++) {
       min = i;
@@ -86,10 +81,8 @@ public class Main {
     }
   }
 
-  //sort the list of files ascending by size (use insertion sort)
+  // sort the list of files ascending by size (use insertion sort)
   public void insertionSort() {
-    /*You should insert code for sorting here, you are going to sort the list of
-        loaded files named "files" ascending by file size.*/
     int pos = 0;
     MyFile temp;
     for (int i = 1; i < files.length; i++) {
@@ -101,27 +94,31 @@ public class Main {
     }
   }
 
-  //sort and output sorted list of text files
+  // sort the list of files ascending by size (use quick sort)
+  public void quickSort() {
+    System.out.println("Quick sort");
+  }
+
+  // sort and output sorted list of text files
   public void sort(SortType st) {
     if (st == SortType.INSERTTIONSORT) {
       insertionSort();
     } else if (st == SortType.SELECTIONSORT) {
       selectionSort();
+    } else if (st == SortType.QUICKSORT)
+    {
+      quickSort();
     }
-    //output result after sorting
+    // output result after sorting
     list(files);
   }
 
-  //return true if given MyFile contains given keyword, otherwise return false
+  // return true if given MyFile contains given keyword, otherwise return false 
   public boolean searchFile(MyFile mf, String keyword) throws IOException {
     if (!mf.getName().toLowerCase().endsWith(".txt")) {
       return false;
     }
-    //read the content of mf and see if keyword is in the content of mf or not
-    /*You can use LineNumberReader to read the content of given mf and check out if
-        the content of given mf contains keyword. This function should return true if 
-        the searching is found, otherwise return false*/
-
+    // read the content of mf and see if keyword is in the content of mf or not
     FileReader fr = null;
     LineNumberReader lnr = null;
     String str;
@@ -133,7 +130,6 @@ public class Main {
 
       // read lines till the end of the stream
       while ((str = lnr.readLine()) != null) {
-
         // check keyword in str
         if (!str.contains(keyword)) {
           return false;
@@ -155,9 +151,9 @@ public class Main {
     return true;
   }
 
-  //output information of all files which content has given keyword
+  // output information of all files which content has given keyword
   public void searchFile(String keyword) throws IOException {
-    //save all files which matched given keyword to the list and output the list
+    // save all files which matched given keyword to the list and output the list
     List<MyFile> listFiles = new ArrayList<>();
     for (MyFile f : files) {
       if (searchFile(f, keyword)) {
@@ -168,6 +164,7 @@ public class Main {
     list(foundFiles);
   }
 
+  // validate choise value of menu
   public static int validateInputNumbers(boolean validate, int choise) {
     Scanner s = new Scanner(System.in);
     while (validate) {
@@ -209,7 +206,9 @@ public class Main {
         }
       }
 
+      // choise value of menu
       switch (choise) {
+        // load file option
         case 1:
           System.out.print("Enter a folder: ");
           validate = true;
@@ -225,12 +224,14 @@ public class Main {
             }
           }
           break;
+        // sort file option
         case 2:
           try {
             SortType st;
             System.out.println("Sort the list of files by using");
             System.out.println("1. Selection Sort");
             System.out.println("2. Inserttion Sort");
+            System.out.println("3. Quick Sort");
             System.out.print("Your choise: ");
             int sortChoise = 0;
             validate = true;
@@ -238,7 +239,7 @@ public class Main {
 
             validate = true;
             while (validate) {
-              if (sortChoise == 1 || sortChoise == 2) {
+              if (sortChoise == 1 || sortChoise == 2 || sortChoise == 3) {
                 validate = false;
               } else {
                 System.err.println("Input number is invalid");
@@ -255,11 +256,16 @@ public class Main {
                 st = SortType.INSERTTIONSORT;
                 main.sort(st);
                 break;
+              case 3:
+                st = SortType.QUICKSORT;
+                main.sort(st);
+                break;
             }
           } catch (NullPointerException ex) {
             main.list(files);
           }
           break;
+        // search file option
         case 3:
           System.out.print("Enter any keyword to search: ");
           String keyword = "";
@@ -283,8 +289,10 @@ public class Main {
             }
           }
           break;
+        // exit option
         case 0:
           running = false;
+          break;
       }
     }
   }
