@@ -5,6 +5,8 @@
  */
 package com.util;
 
+import com.entity.Book;
+
 /**
  *
  * @author tiny
