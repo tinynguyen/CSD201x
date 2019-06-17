@@ -61,7 +61,12 @@ public class MyList {
 
   // Return number of nodes/elements in the list
   public int size() {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+    Node<Book> node = head;
+    int count = 0;
+    while (node != null) {
+      count++;
+    }
+    return count;
   }
 
   // Return a Node at position k, starting position is 0
@@ -111,9 +116,10 @@ public class MyList {
     }
 
     if (temp == null || temp.next == null) {
+      System.err.println("Position " + k + " is over size of book list");
       return;
     }
-    
+
     Node<Book> node = temp.next.next;
     temp.next = node;
   }

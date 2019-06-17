@@ -1,8 +1,5 @@
 
-import com.entity.Book;
 import com.model.Validation;
-import com.util.MyList;
-import com.util.Node;
 import java.util.Scanner;
 
 /*
@@ -37,45 +34,12 @@ public class Main {
       choise = Validation.validateIntNumber(choise);
 
       boolean validate = true;
-      String bCode, title;
-      int quantity, lended, position;
-      double price;
+      String bCode;
+
       switch (choise) {
         // Add new book at last of books list
         case 1:
-          System.out.print("Book code: ");
-          bCode = title = "";
-          price = quantity = lended = 0;
-          while (validate) {
-            bCode = s.nextLine();
-            if (Validation.validateBCode(bCode)) {
-              if (bList.checkBCode(bCode)) {
-                System.out.print("Book title: ");
-                while (validate) {
-                  title = s.nextLine();
-                  if (Validation.validateTitle(title)) {
-                    System.out.print("Quantity: ");
-                    quantity = Validation.validateIntNumber(quantity);
-                    System.out.print("Lended: ");
-                    lended = Validation.validateIntNumber(lended);
-                    System.out.print("Price: ");
-                    price = Validation.validateDoubleNumber(price);
-                    validate = false;
-                  } else {
-                    System.err.println("Code must be required!");
-                    System.err.print("Input book title again: ");
-                  }
-                }
-              } else {
-                System.err.println("Book code must be unique");
-                System.out.print("Book code: ");
-              }
-            } else {
-              System.err.println("Code must be required!");
-              System.err.print("Input book code again: ");
-            }
-          }
-          bList.addLast(new Book(bCode, title, quantity, lended, price));
+          bList.addLast();
           break;
         // Show all books  
         case 2:
@@ -84,7 +48,7 @@ public class Main {
         // Search book by book code
         case 3:
           System.out.print("Book code for search: ");
-          bCode = title = "";
+          bCode = "";
           while (validate) {
             bCode = s.nextLine();
             if (Validation.validateBCode(bCode)) {
@@ -95,87 +59,15 @@ public class Main {
           break;
         // Add new book at begin of books list
         case 4:
-          System.out.print("Book code: ");
-          bCode = title = "";
-          price = quantity = lended = 0;
-          while (validate) {
-            bCode = s.nextLine();
-            if (Validation.validateBCode(bCode)) {
-              if (bList.checkBCode(bCode)) {
-                System.out.print("Book title: ");
-                while (validate) {
-                  title = s.nextLine();
-                  if (Validation.validateTitle(title)) {
-                    System.out.print("Quantity: ");
-                    quantity = Validation.validateIntNumber(quantity);
-                    System.out.print("Lended: ");
-                    lended = Validation.validateIntNumber(lended);
-                    System.out.print("Price: ");
-                    price = Validation.validateDoubleNumber(price);
-                    validate = false;
-                  } else {
-                    System.err.println("Code must be required!");
-                    System.err.print("Input book title again: ");
-                  }
-                }
-              } else {
-                System.err.println("Book code must be unique");
-                System.out.print("Book code: ");
-              }
-            } else {
-              System.err.println("Code must be required!");
-              System.err.print("Input book code again: ");
-            }
-          }
-          bList.addFirst(new Book(bCode, title, quantity, lended, price));
+          bList.addFirst();
           break;
         // Add new book at position k
         case 5:
-          System.out.print("Book code: ");
-          bCode = title = "";
-          price = quantity = lended = position = 0;
-          while (validate) {
-            bCode = s.nextLine();
-            if (Validation.validateBCode(bCode)) {
-              if (bList.checkBCode(bCode)) {
-                System.out.print("Book title: ");
-                while (validate) {
-                  title = s.nextLine();
-                  if (Validation.validateTitle(title)) {
-                    System.out.print("Quantity: ");
-                    quantity = Validation.validateIntNumber(quantity);
-                    System.out.print("Lended: ");
-                    lended = Validation.validateIntNumber(lended);
-                    System.out.print("Price: ");
-                    price = Validation.validateDoubleNumber(price);
-                    System.out.print("Enter adding position: ");
-                    position = Validation.validateIntNumber(position);
-                    validate = false;
-                  } else {
-                    System.err.println("Code must be required!");
-                    System.err.print("Input book title again: ");
-                  }
-                }
-              } else {
-                System.err.println("Book code must be unique");
-                System.out.print("Book code: ");
-              }
-            } else {
-              System.err.println("Code must be required!");
-              System.err.print("Input book code again: ");
-            }
-          }
-
-          bList.addAfter(new Book(bCode, title, quantity, lended, price), position);
+          bList.addAfter();
           break;
+        // Delete a book at position k
         case 6:
-          position = 0;
-          while (validate) {
-            System.out.print("Enter position to delete: ");
-            position = Validation.validateIntNumber(position);
-            validate = false;
-          }
-          bList.deleteAt(position);
+          bList.deleteAt();
           break;
         case 0:
           running = false;
