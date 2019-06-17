@@ -19,13 +19,13 @@ public class MyList {
   public MyList() {
     head = tail = null;
   }
-  // Check if the list is empty or not
 
+  // Check if the list is empty or not
   public boolean isEmpty() {
     return head == null;
   }
-  // Add a new Book to the end of list
 
+  // Add a new Book to the end of list
   public void addLast(Book b) {
     Node<Book> node = new Node<>(b);
     if (head == null) {
@@ -58,28 +58,46 @@ public class MyList {
       node = node.next;
     }
   }
-  // Return number of nodes/elements in the list
 
+  // Return number of nodes/elements in the list
   public int size() {
     throw new UnsupportedOperationException("Remove this line and implement your code here!");
   }
+
   // Return a Node at position k, starting position is 0
-
   public Node<Book> getNode(int k) {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+    Node<Book> node = head;
+    int flag = 0;
+    while (node != null) {
+      if (flag == k) {
+        return node;
+      }
+      flag++;
+      node = node.next;
+    }
+    assert (false);
+    return null;
   }
+
   // Add a new book after a position k
-
   public void addAfter(Book b, int k) {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+    Node<Book> prevNode = this.getNode(k);
+    if (prevNode == null) {
+      System.out.println("Can not add a new book after position " + k);
+      return;
+    }
+    Node<Book> node = new Node<>(b);
+    node.next = prevNode.next;
+    prevNode.next = node;
+    System.out.println("A new book has been added after " + k);
   }
-  // Delete a book at position k
 
+  // Delete a book at position k
   public void deleteAt(int k) {
     throw new UnsupportedOperationException("Remove this line and implement your code here!");
   }
-  // Search a Node by a given book code
 
+  // Search a Node by a given book code
   public Node<Book> search(String bCode) {
     Node<Book> node = head;
     while (node != null) {
@@ -89,6 +107,18 @@ public class MyList {
       node = node.next;
     }
     return null;
+  }
+
+  // Check book code is exist
+  public boolean checkBCode(String bCode) {
+    Node<Book> node = head;
+    while (node != null) {
+      if (node.info.getbCode().equalsIgnoreCase(bCode)) {
+        return false;
+      }
+      node = node.next;
+    }
+    return true;
   }
 
 }

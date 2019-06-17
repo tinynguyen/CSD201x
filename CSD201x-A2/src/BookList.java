@@ -27,8 +27,7 @@ public class BookList {
 
   // Accept information of a Book
   private Book getBook() {
-
-    return null;
+    throw new UnsupportedOperationException("Remove this line and implement your code here!");
   }
 
   // Accept and add a new Book to the end of book list
@@ -62,12 +61,16 @@ public class BookList {
   }
 
   // Add a new Book after a position k
-  public void addAfter() {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+  public void addAfter(Book b, int k) {
+    books.addAfter(b, k);
   }
 
   // Delete a Book at position k
   public void deleteAt() {
     throw new UnsupportedOperationException("Remove this line and implement your code here!");
+  }
+
+  public boolean checkBCode(String bCode) {
+    return books.checkBCode(bCode);
   }
 }

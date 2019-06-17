@@ -38,10 +38,10 @@ public class Main {
 
       boolean validate = true;
       String bCode, title;
-      int quantity, lended;
+      int quantity, lended, position;
       double price;
       switch (choise) {
-        // Add book at last of books list
+        // Add new book at last of books list
         case 1:
           System.out.print("Book code: ");
           bCode = title = "";
@@ -49,21 +49,26 @@ public class Main {
           while (validate) {
             bCode = s.nextLine();
             if (Validation.validateBCode(bCode)) {
-              System.out.print("Book title: ");
-              while (validate) {
-                title = s.nextLine();
-                if (Validation.validateTitle(title)) {
-                  System.out.print("Quantity: ");
-                  quantity = Validation.validateIntNumber(quantity);
-                  System.out.print("Lended: ");
-                  lended = Validation.validateIntNumber(lended);
-                  System.out.print("Price: ");
-                  price = Validation.validateDoubleNumber(price);
-                  validate = false;
-                } else {
-                  System.err.println("Code must be required!");
-                  System.err.print("Input book title again: ");
+              if (bList.checkBCode(bCode)) {
+                System.out.print("Book title: ");
+                while (validate) {
+                  title = s.nextLine();
+                  if (Validation.validateTitle(title)) {
+                    System.out.print("Quantity: ");
+                    quantity = Validation.validateIntNumber(quantity);
+                    System.out.print("Lended: ");
+                    lended = Validation.validateIntNumber(lended);
+                    System.out.print("Price: ");
+                    price = Validation.validateDoubleNumber(price);
+                    validate = false;
+                  } else {
+                    System.err.println("Code must be required!");
+                    System.err.print("Input book title again: ");
+                  }
                 }
+              } else {
+                System.err.println("Book code must be unique");
+                System.out.print("Book code: ");
               }
             } else {
               System.err.println("Code must be required!");
@@ -76,7 +81,7 @@ public class Main {
         case 2:
           bList.list();
           break;
-          // Search book by book code
+        // Search book by book code
         case 3:
           System.out.print("Book code for search: ");
           bCode = title = "";
@@ -88,7 +93,7 @@ public class Main {
             }
           }
           break;
-        // Add book at begin of books list
+        // Add new book at begin of books list
         case 4:
           System.out.print("Book code: ");
           bCode = title = "";
@@ -96,21 +101,26 @@ public class Main {
           while (validate) {
             bCode = s.nextLine();
             if (Validation.validateBCode(bCode)) {
-              System.out.print("Book title: ");
-              while (validate) {
-                title = s.nextLine();
-                if (Validation.validateTitle(title)) {
-                  System.out.print("Quantity: ");
-                  quantity = Validation.validateIntNumber(quantity);
-                  System.out.print("Lended: ");
-                  lended = Validation.validateIntNumber(lended);
-                  System.out.print("Price: ");
-                  price = Validation.validateDoubleNumber(price);
-                  validate = false;
-                } else {
-                  System.err.println("Code must be required!");
-                  System.err.print("Input book title again: ");
+              if (bList.checkBCode(bCode)) {
+                System.out.print("Book title: ");
+                while (validate) {
+                  title = s.nextLine();
+                  if (Validation.validateTitle(title)) {
+                    System.out.print("Quantity: ");
+                    quantity = Validation.validateIntNumber(quantity);
+                    System.out.print("Lended: ");
+                    lended = Validation.validateIntNumber(lended);
+                    System.out.print("Price: ");
+                    price = Validation.validateDoubleNumber(price);
+                    validate = false;
+                  } else {
+                    System.err.println("Code must be required!");
+                    System.err.print("Input book title again: ");
+                  }
                 }
+              } else {
+                System.err.println("Book code must be unique");
+                System.out.print("Book code: ");
               }
             } else {
               System.err.println("Code must be required!");
@@ -119,8 +129,44 @@ public class Main {
           }
           bList.addFirst(new Book(bCode, title, quantity, lended, price));
           break;
+        // Add new book at position k
         case 5:
-          System.err.println("CASE 5");
+          System.out.print("Book code: ");
+          bCode = title = "";
+          price = quantity = lended = position = 0;
+          while (validate) {
+            bCode = s.nextLine();
+            if (Validation.validateBCode(bCode)) {
+              if (bList.checkBCode(bCode)) {
+                System.out.print("Book title: ");
+                while (validate) {
+                  title = s.nextLine();
+                  if (Validation.validateTitle(title)) {
+                    System.out.print("Quantity: ");
+                    quantity = Validation.validateIntNumber(quantity);
+                    System.out.print("Lended: ");
+                    lended = Validation.validateIntNumber(lended);
+                    System.out.print("Price: ");
+                    price = Validation.validateDoubleNumber(price);
+                    System.out.print("Enter adding position: ");
+                    position = Validation.validateIntNumber(position);
+                    validate = false;
+                  } else {
+                    System.err.println("Code must be required!");
+                    System.err.print("Input book title again: ");
+                  }
+                }
+              } else {
+                System.err.println("Book code must be unique");
+                System.out.print("Book code: ");
+              }
+            } else {
+              System.err.println("Code must be required!");
+              System.err.print("Input book code again: ");
+            }
+          }
+
+          bList.addAfter(new Book(bCode, title, quantity, lended, price), position);
           break;
         case 6:
           System.err.println("CASE 6");
