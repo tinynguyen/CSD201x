@@ -47,7 +47,7 @@ public class BookList {
 
   // Accept and add a new Book to the begining of book list
   public void addFirst() {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+    books.addFirst(new Book("B2", "AB23EF", 10, 23, 51));
   }
 
   // Add a new Book after a position k

@@ -32,7 +32,9 @@ public class MyList {
   //add a new Book to the begining of list
 
   public void addFirst(Book b) {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+    Node<Book> node = new Node<>(b);
+    node.next = this.head;
+    this.head = node;
   }
   //output information of all books in the list
 

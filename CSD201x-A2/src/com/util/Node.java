@@ -8,6 +8,7 @@ package com.util;
 /**
  *
  * @author tiny
+ * @param <T>
  */
 public class Node<T> {
 
