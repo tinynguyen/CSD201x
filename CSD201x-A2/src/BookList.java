@@ -31,8 +31,8 @@ public class BookList {
   }
 
   // Accept and add a new Book to the end of book list
-  public void addLast() {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+  public void addLast(Book b) {
+    books.addLast(b);
   }
 
   // Output information of book list

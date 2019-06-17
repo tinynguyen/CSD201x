@@ -27,23 +27,33 @@ public class MyList {
   // Add a new Book to the end of list
 
   public void addLast(Book b) {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+    Node<Book> node = new Node<>(b);
+    if (head == null) {
+      head = node;
+      return;
+    }
+    node.next = null;
+    tail = head;
+    while (tail.next != null) {
+      tail = tail.next;
+    }
+    tail.next = node;
+    return;
   }
-  // Add a new Book to the begining of list
 
+  // Add a new Book to the begining of list
   public void addFirst(Book b) {
     Node<Book> node = new Node<>(b);
     node.next = this.head;
     this.head = node;
   }
-  
+
   // Output information of all books in the list
   public void traverse() {
     Node<Book> node = head;
     System.out.println(String.format("%-10s%-20s%-10s%-10s%-10s%-10s", "Code", "Title",
             "Quantity", "Lended", "Price", "Value"));
-    while(node != null)
-    {
+    while (node != null) {
       System.out.println(node.info.toString());
       node = node.next;
     }
