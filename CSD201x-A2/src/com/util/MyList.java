@@ -83,7 +83,7 @@ public class MyList {
   public void addAfter(Book b, int k) {
     Node<Book> prevNode = this.getNode(k);
     if (prevNode == null) {
-      System.out.println("Can not add a new book after position " + k);
+      System.err.println("Can not add a new book after position " + k);
       return;
     }
     Node<Book> node = new Node<>(b);
@@ -94,7 +94,28 @@ public class MyList {
 
   // Delete a book at position k
   public void deleteAt(int k) {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+    if (head == null) {
+      System.err.println("Books list is empty...");
+      return;
+    }
+
+    Node<Book> temp = head;
+    if (k == 0) {
+      head = temp.next;
+      System.out.println("Deleted a book at position" + k);
+      return;
+    }
+
+    for (int i = 0; temp != null && i < k - 1; i++) {
+      temp = temp.next;
+    }
+
+    if (temp == null || temp.next == null) {
+      return;
+    }
+    
+    Node<Book> node = temp.next.next;
+    temp.next = node;
   }
 
   // Search a Node by a given book code

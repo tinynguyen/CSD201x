@@ -169,7 +169,13 @@ public class Main {
           bList.addAfter(new Book(bCode, title, quantity, lended, price), position);
           break;
         case 6:
-          System.err.println("CASE 6");
+          position = 0;
+          while (validate) {
+            System.out.print("Enter position to delete: ");
+            position = Validation.validateIntNumber(position);
+            validate = false;
+          }
+          bList.deleteAt(position);
           break;
         case 0:
           running = false;

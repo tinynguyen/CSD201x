@@ -66,8 +66,8 @@ public class BookList {
   }
 
   // Delete a Book at position k
-  public void deleteAt() {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+  public void deleteAt(int k) {
+    books.deleteAt(k);
   }
 
   public boolean checkBCode(String bCode) {
