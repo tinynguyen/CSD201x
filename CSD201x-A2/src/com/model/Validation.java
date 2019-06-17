@@ -27,9 +27,8 @@ public class Validation {
     }
     return num;
   }
-  
-  public static double validateDoubleNumber(double num)
-  {
+
+  public static double validateDoubleNumber(double num) {
     Scanner s = new Scanner(System.in);
     boolean validate = true;
     while (validate) {
@@ -46,8 +45,6 @@ public class Validation {
 
   public static boolean validateBCode(String bCode) {
     if (bCode.trim().equals("") || bCode == null) {
-      System.err.println("Code must be required!");
-      System.err.print("Input book code again: ");
       return false;
     }
     return true;
@@ -55,8 +52,6 @@ public class Validation {
 
   public static boolean validateTitle(String title) {
     if (title.trim().equals("") || title == null) {
-      System.err.println("Code must be required!");
-      System.err.print("Input book code again: ");
       return false;
     }
     return true;

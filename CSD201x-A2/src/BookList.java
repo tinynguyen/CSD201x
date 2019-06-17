@@ -46,8 +46,8 @@ public class BookList {
   }
 
   // Accept and add a new Book to the begining of book list
-  public void addFirst() {
-    books.addFirst(new Book("B2", "AB23EF", 10, 23, 51));
+  public void addFirst(Book b) {
+    books.addFirst(b);
   }
 
   // Add a new Book after a position k

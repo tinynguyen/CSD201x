@@ -1,4 +1,5 @@
 
+import com.entity.Book;
 import com.model.Validation;
 import java.util.Scanner;
 
@@ -47,27 +48,36 @@ public class Main {
           System.err.println("CASE 4");
           System.out.print("Book code: ");
           boolean validate = true;
+          String bCode = "";
+          String title = "";
+          int quantity = 0;
+          int lended = 0;
+          double price = 0;
           while (validate) {
-            String bCode = s.nextLine();
+            bCode = s.nextLine();
             if (Validation.validateBCode(bCode)) {
               System.out.print("Book title: ");
-              String title = s.nextLine();
-              if (Validation.validateTitle(title)) {
-                System.out.print("Quantity: ");
-                int quantity = 0;
-                quantity = Validation.validateIntNumber(quantity);
-                System.out.print("Lended: ");
-                int lended = 0;
-                lended = Validation.validateIntNumber(lended);
-                System.out.print("Price: ");
-                double price = 0;
-                price = Validation.validateDoubleNumber(price);
-                validate = false;
+              while (validate) {
+                title = s.nextLine();
+                if (Validation.validateTitle(title)) {
+                  System.out.print("Quantity: ");
+                  quantity = Validation.validateIntNumber(quantity);
+                  System.out.print("Lended: ");
+                  lended = Validation.validateIntNumber(lended);
+                  System.out.print("Price: ");
+                  price = Validation.validateDoubleNumber(price);
+                  validate = false;
+                } else {
+                  System.err.println("Code must be required!");
+                  System.err.print("Input book title again: ");
+                }
               }
+            } else {
+              System.err.println("Code must be required!");
+              System.err.print("Input book code again: ");
             }
           }
-
-          bList.addFirst();
+          bList.addFirst(new Book(bCode, title, quantity, lended, price));
           break;
         case 5:
           System.err.println("CASE 5");
