@@ -7,14 +7,13 @@ import com.util.MyList;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author tiny
  */
 public class BookList {
 
-  //a list of book
+  // A list of book
   private MyList books;
 
   public MyList getBooks() {
@@ -27,7 +26,8 @@ public class BookList {
 
   // Accept information of a Book
   private Book getBook() {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+
+    return null;
   }
 
   // Accept and add a new Book to the end of book list
@@ -37,7 +37,11 @@ public class BookList {
 
   // Output information of book list
   public void list() {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+    if (books.isEmpty()) {
+      System.out.println("Books list is empty...");
+    } else {
+      books.traverse();
+    }
   }
 
   // Search book by book code

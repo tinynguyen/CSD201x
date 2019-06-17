@@ -1,6 +1,8 @@
 
 import com.entity.Book;
 import com.model.Validation;
+import com.util.MyList;
+import com.util.Node;
 import java.util.Scanner;
 
 /*
@@ -39,13 +41,12 @@ public class Main {
           System.err.println("CASE 1");
           break;
         case 2:
-          System.err.println("CASE 2");
+          bList.list();
           break;
         case 3:
           System.err.println("CASE 3");
           break;
         case 4:
-          System.err.println("CASE 4");
           System.out.print("Book code: ");
           boolean validate = true;
           String bCode = "";
