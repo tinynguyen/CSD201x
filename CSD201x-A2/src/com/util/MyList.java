@@ -81,7 +81,14 @@ public class MyList {
   // Search a Node by a given book code
 
   public Node<Book> search(String bCode) {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+    Node<Book> node = head;
+    while (node != null) {
+      if (node.info.getbCode().equals(bCode)) {
+        return node;
+      }
+      node = node.next;
+    }
+    return null;
   }
 
 }

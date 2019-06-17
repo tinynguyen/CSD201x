@@ -1,6 +1,7 @@
 
 import com.entity.Book;
 import com.util.MyList;
+import com.util.Node;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -38,15 +39,21 @@ public class BookList {
   // Output information of book list
   public void list() {
     if (books.isEmpty()) {
-      System.out.println("Books list is empty...");
+      System.err.println("Books list is empty...");
     } else {
       books.traverse();
     }
   }
 
   // Search book by book code
-  public void search() {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+  public void search(String bCode) {
+    Node<Book> book = books.search(bCode);
+    if (book == null) {
+      System.err.println(bCode + " is not exist...");
+    } else {
+      System.out.println("Infomation of book code " + bCode);
+      System.out.println(book.info.toString());
+    }
   }
 
   // Accept and add a new Book to the begining of book list

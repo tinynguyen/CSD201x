@@ -41,6 +41,7 @@ public class Main {
       int quantity, lended;
       double price;
       switch (choise) {
+        // Add book at last of books list
         case 1:
           System.out.print("Book code: ");
           bCode = title = "";
@@ -71,12 +72,23 @@ public class Main {
           }
           bList.addLast(new Book(bCode, title, quantity, lended, price));
           break;
+        // Show all books  
         case 2:
           bList.list();
           break;
+          // Search book by book code
         case 3:
-          System.err.println("CASE 3");
+          System.out.print("Book code for search: ");
+          bCode = title = "";
+          while (validate) {
+            bCode = s.nextLine();
+            if (Validation.validateBCode(bCode)) {
+              bList.search(bCode);
+              validate = false;
+            }
+          }
           break;
+        // Add book at begin of books list
         case 4:
           System.out.print("Book code: ");
           bCode = title = "";
