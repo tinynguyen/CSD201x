@@ -26,7 +26,8 @@ public class Main {
       System.out.println("| 4. Input Book and add to beginning |");
       System.out.println("| 5. Add book after position k       |");
       System.out.println("| 6. Delete book at position k       |");
-      System.out.println("| 7. Save Book list                  |");
+      System.out.println("| 7. Sort book list by price         |");
+      System.out.println("| 8. Save book list                  |");
       System.out.println("| 0. Exit                            |");
       System.out.println("|------------------------------------|");
       System.out.print("  Your choice: ".toUpperCase());
@@ -59,8 +60,11 @@ public class Main {
         case 6:
           bList.deleteAt();
           break;
-        // Save book data in text file
         case 7:
+          bList.sort();
+          break;
+        // Save book data in text file
+        case 8:
           bList.save();
           break;
         case 0:

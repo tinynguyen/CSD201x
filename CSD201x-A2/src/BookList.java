@@ -32,9 +32,8 @@ public class BookList {
 
   public BookList() {
     books = BookData.readData();
-    if(books == null)
-    {
-      books= new MyList();
+    if (books == null) {
+      books = new MyList();
     }
   }
 
@@ -85,7 +84,7 @@ public class BookList {
 
   // Output information of book list
   public void list() {
-    if (books == null || books.isEmpty()) {
+    if (books.isEmpty()) {
       System.err.println("Books list is empty...");
     } else {
       books.traverse();
@@ -209,5 +208,10 @@ public class BookList {
 
   public void save() {
     BookData.saveData(books);
+  }
+
+  public void sort() {
+    books.sort();
+    books.traverse();
   }
 }

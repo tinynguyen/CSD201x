@@ -14,7 +14,7 @@ import java.io.Serializable;
  */
 public class MyList implements Serializable {
 
-  Node<Book> head, tail;
+  Node<Book> head, tail, sorted;
 
   // Ctor
   public MyList() {
@@ -66,6 +66,7 @@ public class MyList implements Serializable {
     int count = 0;
     while (node != null) {
       count++;
+      node = node.next;
     }
     return count;
   }
@@ -147,6 +148,35 @@ public class MyList implements Serializable {
       node = node.next;
     }
     return true;
+  }
+
+  public void sort() {
+    sorted = null;
+    Node<Book> current = this.head;
+    while (current != null) {
+      // Store next for next iteration 
+      Node<Book> next = current.next;
+      // insert current in sorted linked list 
+      sortedInsert(current);
+      // Update current 
+      current = next;
+    }
+    // Update head_ref to point to sorted linked list 
+    head = sorted;
+  }
+
+  private void sortedInsert(Node<Book> newNode) {
+    if (sorted == null || sorted.info.getPrice() >= newNode.info.getPrice()) {
+      newNode.next = sorted;
+      sorted = newNode;
+    } else {
+      Node<Book> current = sorted;
+      while (current.next != null && current.next.info.getPrice() < newNode.info.getPrice()) {
+        current = current.next;
+      }
+      newNode.next = current.next;
+      current.next = newNode;
+    }
   }
 
 }
