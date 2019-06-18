@@ -1,5 +1,6 @@
 
 import com.entity.Book;
+import com.model.BookData;
 import com.model.Validation;
 import com.util.MyList;
 import com.util.Node;
@@ -30,7 +31,11 @@ public class BookList {
   }
 
   public BookList() {
-    books = new MyList();
+    books = BookData.readData();
+    if(books == null)
+    {
+      books= new MyList();
+    }
   }
 
   // Accept information of a Book
@@ -75,11 +80,12 @@ public class BookList {
     }
 
     books.addLast(this.getBook());
+    BookData.saveData(books);
   }
 
   // Output information of book list
   public void list() {
-    if (books.isEmpty()) {
+    if (books == null || books.isEmpty()) {
       System.err.println("Books list is empty...");
     } else {
       books.traverse();
@@ -144,6 +150,7 @@ public class BookList {
     }
 
     books.addFirst(this.getBook());
+    BookData.saveData(books);
   }
 
   // Add a new Book after a position k
@@ -184,6 +191,7 @@ public class BookList {
       }
     }
     books.addAfter(this.getBook(), position);
+    BookData.saveData(books);
   }
 
   // Delete a Book at position k
@@ -196,6 +204,10 @@ public class BookList {
       validate = false;
     }
     books.deleteAt(position);
+    BookData.saveData(books);
   }
 
+  public void save() {
+    BookData.saveData(books);
+  }
 }

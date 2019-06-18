@@ -6,12 +6,13 @@
 package com.util;
 
 import com.entity.Book;
+import java.io.Serializable;
 
 /**
  *
  * @author tiny
  */
-public class MyList {
+public class MyList implements Serializable {
 
   Node<Book> head, tail;
 
