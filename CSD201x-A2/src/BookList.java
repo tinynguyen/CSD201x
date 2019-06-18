@@ -87,7 +87,17 @@ public class BookList {
   }
 
   // Search book by book code
-  public void search(String bCode) {
+  public void search() {
+    boolean validate = true;
+    System.out.print("Book code for search: ");
+    bCode = "";
+    while (validate) {
+      bCode = s.nextLine();
+      if (Validation.validateBCode(bCode)) {
+        books.search(bCode);
+        validate = false;
+      }
+    }
     Node<Book> book = books.search(bCode);
     if (book == null) {
       System.err.println(bCode + " is not exist...");
@@ -188,7 +198,4 @@ public class BookList {
     books.deleteAt(position);
   }
 
-  public boolean checkBCode(String bCode) {
-    return books.checkBCode(bCode);
-  }
 }
