@@ -109,7 +109,7 @@ public class MyList implements Serializable {
     Node<Book> temp = head;
     if (k == 0) {
       head = temp.next;
-      System.out.println("Deleted a book at position" + k);
+      System.out.println("Deleted book code " + '"' + head.info.getbCode() + '"' + " at position " + k);
       return;
     }
 
@@ -123,6 +123,7 @@ public class MyList implements Serializable {
     }
 
     Node<Book> node = temp.next.next;
+    System.out.println("Deleted book code " + '"' + temp.next.info.getbCode() + '"' + " at position " + k);
     temp.next = node;
   }
 
