@@ -49,7 +49,14 @@ public class MyBSTree {
 
   // Insert a new Product to a tree
   public void insert(Product product) {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+    if (root == null) {
+      root = new Node<>(product);
+      return;
+    }
+    Node<Product> f, p;
+    p = root;
+    f = null;
+
   }
 
   // Balance a tree
@@ -109,4 +116,7 @@ public class MyBSTree {
     throw new UnsupportedOperationException("Remove this line and implement your code here!");
   }
 
+  public boolean checkCodeUnique(String code) {
+    return true;
+  }
 }

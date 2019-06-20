@@ -1,4 +1,7 @@
+
 import entity.Product;
+import java.util.Scanner;
+import model.Validation;
 import util.MyBSTree;
 
 /*
@@ -6,12 +9,17 @@ import util.MyBSTree;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author tiny
  */
 public class MyProduct {
+
+  Scanner s = new Scanner(System.in);
+
+  private String code, name;
+  private int quantity, saled;
+  private double price;
 
   // A list of products
   MyBSTree tree;
@@ -22,7 +30,41 @@ public class MyProduct {
 
   // Input and insert a new product to tree
   public void insert() {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+    boolean validate = true;
+    code = name = "";
+    price = quantity = saled = 0;
+    System.out.print("Product code: ");
+    while (validate) {
+      code = s.nextLine();
+      if (Validation.validateString(code)) {
+        if (tree.checkCodeUnique(code)) {
+          System.out.print("Product name: ");
+          while (validate) {
+            name = s.nextLine();
+            if (Validation.validateString(name)) {
+              System.out.print("Quantity: ");
+              quantity = Validation.validateIntNumber(quantity);
+              System.out.print("Saled: ");
+              saled = Validation.validateIntNumber(saled);
+              System.out.print("Price: ");
+              price = Validation.validateDoubleNumber(price);
+              validate = false;
+            } else {
+              System.err.println("Name must be required!");
+              System.err.print("Enter product name again: ");
+            }
+          }
+        } else {
+          System.err.println("Product code must be unique");
+          System.out.print("Product code: ");
+        }
+      } else {
+        System.err.println("Code must be required!");
+        System.err.print("Enter product code again: ");
+
+      }
+    }
+    tree.insert(new Product(code, name, quantity, saled, price));
   }
 
   // In-order traverse
