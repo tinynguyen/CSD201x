@@ -13,28 +13,28 @@ import util.MyBSTree;
  */
 public class MyProduct {
 
-  //a list of products
+  // A list of products
   MyBSTree tree;
 
   public MyProduct() {
     tree = new MyBSTree();
   }
 
-  //1.1 input and insert a new product to tree
+  // Input and insert a new product to tree
   public void insert() {
     throw new UnsupportedOperationException("Remove this line and implement your code here!");
   }
 
-  //1.2 in-order traverse
+  // In-order traverse
   public void inOrder() {
     throw new UnsupportedOperationException("Remove this line and implement your code here!");
   }
-  //1.3 BFT a tree
+  // BFT a tree
 
   public void BFT() {
     throw new UnsupportedOperationException("Remove this line and implement your code here!");
   }
-  //1.4 search a product by product code
+  // Search a product by product code
 
   public void search() {
     throw new UnsupportedOperationException("Remove this line and implement your code here!");
@@ -44,12 +44,12 @@ public class MyProduct {
   public void delete() {
     throw new UnsupportedOperationException("Remove this line and implement your code here!");
   }
-  //1.6 simply balancing a tree
+  // Simply balancing a tree
 
   public void balance() {
     throw new UnsupportedOperationException("Remove this line and implement your code here!");
   }
-  //1.7 count the number of products in the tree
+  // Count the number of products in the tree
 
   public int size() {
     throw new UnsupportedOperationException("Remove this line and implement your code here!");
