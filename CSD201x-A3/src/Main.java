@@ -14,6 +14,8 @@ public class Main {
 
   public static void main(String[] args) {
 
+    MyProduct p = new MyProduct();
+
     boolean running = true;
     while (running) {
       System.out.println("|------------------------------------|");
@@ -30,8 +32,6 @@ public class Main {
       System.out.println("|------------------------------------|");
       System.out.print("  Your choice: ".toUpperCase());
 
-      MyProduct p = new MyProduct();
-      
       int choise = 0;
       choise = Validation.validateIntNumber(choise);
 

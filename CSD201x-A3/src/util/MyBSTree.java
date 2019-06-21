@@ -29,7 +29,7 @@ public class MyBSTree {
 
   // Return true if tree is empty otherwise return false
   public boolean isEmpty() {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+    return root == null;
   }
 
   // Inorder a tree
@@ -56,6 +56,27 @@ public class MyBSTree {
     Node<Product> f, p;
     p = root;
     f = null;
+    while (p != null) {
+      if (p.info.getCode().equalsIgnoreCase(product.getCode())) {
+        System.out.println(" The product code " + product.getCode() + " already exists, no insertion");
+        return;
+      }
+
+      f = p;
+
+      if (product.getCode().compareToIgnoreCase(p.info.getCode()) < 0) {
+        p = p.left;
+      } else {
+        p = p.right;
+      }
+
+    }
+
+    if (product.getCode().compareToIgnoreCase(f.info.getCode()) < 0) {
+      f.left = new Node(product);
+    } else {
+      f.right = new Node(product);
+    }
 
   }
 
