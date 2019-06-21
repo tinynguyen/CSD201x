@@ -69,7 +69,7 @@ public class MyProduct {
 
   // In-order traverse
   public void inOrder() {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+    tree.inOrder();
   }
   // BFT a tree
 

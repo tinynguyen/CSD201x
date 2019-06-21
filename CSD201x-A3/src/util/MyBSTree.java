@@ -8,6 +8,7 @@ package util;
 import entity.Product;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  *
@@ -34,7 +35,27 @@ public class MyBSTree {
 
   // Inorder a tree
   public void inOrder() {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+    if (root == null) {
+      return;
+    }
+    Stack<Node<Product>> s = new Stack<Node<Product>>();
+    Node<Product> curr = root;
+
+    // Traverse the tree 
+    System.out.println(String.format("%-10s%-20s%-10s%-10s%-10s", "Code", "Name", "Quantity", "Saled", "Price"));
+    while (curr != null || s.size() > 0) {
+      while (curr != null) {
+        s.push(curr);
+        curr = curr.left;
+      }
+
+      curr = s.pop();
+
+      System.out.println(curr.info.toString());
+
+      curr = curr.right;
+    }
+
   }
 
   // Count number of products
@@ -61,15 +82,12 @@ public class MyBSTree {
         System.out.println(" The product code " + product.getCode() + " already exists, no insertion");
         return;
       }
-
       f = p;
-
       if (product.getCode().compareToIgnoreCase(p.info.getCode()) < 0) {
         p = p.left;
       } else {
         p = p.right;
       }
-
     }
 
     if (product.getCode().compareToIgnoreCase(f.info.getCode()) < 0) {
@@ -77,7 +95,6 @@ public class MyBSTree {
     } else {
       f.right = new Node(product);
     }
-
   }
 
   // Balance a tree
