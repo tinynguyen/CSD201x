@@ -126,12 +126,12 @@ public class MyProduct implements Serializable{
 
   // Simply balancing a tree
   public void balance() {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+    tree.balance();
   }
 
   // Count the number of products in the tree
   public int size() {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+    return tree.count();
   }
   
   public void save() {

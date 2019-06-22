@@ -37,36 +37,36 @@ public class Main {
       choise = Validation.validateIntNumber(choise);
 
       switch (choise) {
+        // Add new product
         case 1:
-          System.err.println("CASE 1");
           p.insert();
           break;
+        // Breadth first traversal - Inorder
         case 2:
-          System.err.println("CASE 2");
           p.inOrder();
           break;
+        // Breadth first traversal
         case 3:
-          System.err.println("CASE 3");
           p.BFT();
           break;
+        // Search product by code
         case 4:
-          System.err.println("CASE 4");
           p.search();
           break;
+        // Delete product by code
         case 5:
-          System.err.println("CASE 5");
           p.delete();
           break;
+        // Balancing BST
         case 6:
-          System.err.println("CASE 6");
           p.balance();
           break;
+        // Count all products
         case 7:
-          System.err.println("CASE 7");
-          p.size();
+          System.out.println("Number of products: " + p.size());
           break;
+        // Save all products
         case 8:
-          System.err.println("CASE 8");
           p.save();
           break;
         case 0:

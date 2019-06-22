@@ -37,6 +37,7 @@ public class MyBSTree implements Serializable {
   // Inorder a tree
   public void inOrder() {
     if (root == null) {
+      System.err.println("Products list is empty...");
       return;
     }
     Stack<Node<Product>> stack = new Stack<Node<Product>>();
@@ -58,25 +59,30 @@ public class MyBSTree implements Serializable {
 
   // Count number of products
   public int count() {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+    return size(root);
   }
 
   // Breadth-first traverse a tree
   public void BFT() {
+    if (root == null) {
+      System.err.println("Products list is empty...");
+      return;
+    }
     MyQueue queue = new MyQueue();
+    this.balance();
     queue.enqueue(root);
     while (!queue.isEmpty()) {
-      Node<Product> tempNode = (Node<Product>) queue.dequeue();
-      System.out.println(tempNode.info.toString());
+      Node<Product> tmp = (Node<Product>) queue.dequeue();
+      System.out.println(tmp.info.toString());
 
       /*Enqueue left child */
-      if (tempNode.left != null) {
-        queue.enqueue(tempNode.left);
+      if (tmp.left != null) {
+        queue.enqueue(tmp.left);
       }
 
       /*Enqueue right child */
-      if (tempNode.right != null) {
-        queue.enqueue(tempNode.right);
+      if (tmp.right != null) {
+        queue.enqueue(tmp.right);
       }
     }
   }
@@ -84,6 +90,7 @@ public class MyBSTree implements Serializable {
   // Insert a new Product to a tree
   public void insert(Product product) {
     if (root == null) {
+      System.out.println(" The product code " + product.getCode() + " already exists, no insertion");
       root = new Node<>(product);
       return;
     }
@@ -104,8 +111,10 @@ public class MyBSTree implements Serializable {
     }
 
     if (product.getCode().compareToIgnoreCase(f.info.getCode()) < 0) {
+      System.out.println(" The product code " + product.getCode() + " already exists, no insertion");
       f.left = new Node(product);
     } else {
+      System.out.println(" The product code " + product.getCode() + " already exists, no insertion");
       f.right = new Node(product);
     }
   }
@@ -204,5 +213,14 @@ public class MyBSTree implements Serializable {
       node = node.left;
     }
     return code;
+  }
+
+  // Caculate all node of tree
+  private int size(Node<Product> root) {
+    if (root == null) {
+      return 0;
+    } else {
+      return size(root.left) + 1 + size(root.right);
+    }
   }
 }

@@ -34,8 +34,9 @@ public class ProductData {
 
       oos.close();
       fos.close();
+      System.out.println("Save products successful!");
     } catch (IOException ex) {
-      ex.printStackTrace();
+//      ex.printStackTrace();
     }
   }
 
@@ -50,13 +51,13 @@ public class ProductData {
       tree = (MyBSTree) ois.readObject();
 
     } catch (FileNotFoundException ex) {
-      ex.printStackTrace();
+//      ex.printStackTrace();
       return tree;
     } catch (IOException ex) {
-      ex.printStackTrace();
+//      ex.printStackTrace();
       return tree;
     } catch (ClassNotFoundException ex) {
-      ex.printStackTrace();
+//      ex.printStackTrace();
       return tree;
     }
     return tree;
