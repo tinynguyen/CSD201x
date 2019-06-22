@@ -1,6 +1,8 @@
 
 import entity.Product;
+import java.io.Serializable;
 import java.util.Scanner;
+import model.ProductData;
 import model.Validation;
 import util.MyBSTree;
 import util.Node;
@@ -14,7 +16,7 @@ import util.Node;
  *
  * @author tiny
  */
-public class MyProduct {
+public class MyProduct implements Serializable{
 
   Scanner s = new Scanner(System.in);
 
@@ -26,7 +28,10 @@ public class MyProduct {
   MyBSTree tree;
 
   public MyProduct() {
-    tree = new MyBSTree();
+    tree = ProductData.readData();
+    if (tree == null) {
+      tree = new MyBSTree();
+    }
   }
 
   // Input and insert a new product to tree
@@ -62,7 +67,6 @@ public class MyProduct {
       } else {
         System.err.println("Code must be required!");
         System.err.print("Enter product code again: ");
-
       }
     }
     tree.insert(new Product(code, name, quantity, saled, price));
@@ -72,13 +76,13 @@ public class MyProduct {
   public void inOrder() {
     tree.inOrder();
   }
-  // BFT a tree
 
+// BFT a tree
   public void BFT() {
     tree.BFT();
   }
-  // Search a product by product code
 
+  // Search a product by product code
   public void search() {
     boolean validate = true;
     code = "";
@@ -98,23 +102,39 @@ public class MyProduct {
     if (p != null) {
       System.out.println("Information of product code " + p.info.getCode());
       tree.visit(p);
-    }else {
+    } else {
       System.err.println("The product code " + p.info.getCode() + " is not exist!");
     }
   }
-  //1.5 delete a product by product code
 
+  // Delete a product by product code
   public void delete() {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+    boolean validate = true;
+    code = "";
+    System.out.print("Product code to delete: ");
+    while (validate) {
+      code = s.nextLine();
+      if (Validation.validateString(code)) {
+        tree.delete(code);
+        validate = false;
+      } else {
+        System.err.println("Code must be required!");
+        System.err.print("Enter product code again: ");
+      }
+    }
   }
-  // Simply balancing a tree
 
+  // Simply balancing a tree
   public void balance() {
     throw new UnsupportedOperationException("Remove this line and implement your code here!");
   }
-  // Count the number of products in the tree
 
+  // Count the number of products in the tree
   public int size() {
     throw new UnsupportedOperationException("Remove this line and implement your code here!");
+  }
+  
+  public void save() {
+    ProductData.saveData(tree);
   }
 }

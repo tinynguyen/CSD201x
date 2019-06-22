@@ -28,6 +28,7 @@ public class Main {
       System.out.println("| 5. Delete by a product code        |");
       System.out.println("| 6. Simple balancing                |");
       System.out.println("| 7. Count number of products        |");
+      System.out.println("| 8. Save all products               |");
       System.out.println("| 0. Exit                            |");
       System.out.println("|------------------------------------|");
       System.out.print("  Your choice: ".toUpperCase());
@@ -63,6 +64,10 @@ public class Main {
         case 7:
           System.err.println("CASE 7");
           p.size();
+          break;
+        case 8:
+          System.err.println("CASE 8");
+          p.save();
           break;
         case 0:
           running = false;

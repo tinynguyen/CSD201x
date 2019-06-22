@@ -6,6 +6,7 @@
 package util;
 
 import entity.Product;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -14,7 +15,7 @@ import java.util.Stack;
  *
  * @author tiny
  */
-public class MyBSTree {
+public class MyBSTree implements Serializable {
 
   // A root of tree
   Node<Product> root;
@@ -163,10 +164,45 @@ public class MyBSTree {
 
   // Delete a node by a given product code
   public void delete(String code) {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+    root = deleteRec(root, code);
+
   }
 
   public boolean checkCodeUnique(String code) {
     return true;
+  }
+
+  // Delete a node and insert a new node
+  private Node<Product> deleteRec(Node<Product> root, String code) {
+    if (root == null) {
+      return root;
+    }
+    if (code.compareToIgnoreCase(root.info.getCode()) < 0) {
+      root.left = deleteRec(root.left, code);
+    } else if (code.compareToIgnoreCase(root.info.getCode()) > 0) {
+      root.right = deleteRec(root.right, code);
+    } else {
+      // node with only one child or no child 
+      if (root.left == null) {
+        return root.right;
+      } else if (root.right == null) {
+        return root.left;
+      }
+      root.info.setCode(getMinCode(root.right));
+
+      // Delete the inorder successor 
+      root.right = deleteRec(root.right, root.info.getCode());
+    }
+    return root;
+  }
+
+  // Find smallest child of subtree
+  private String getMinCode(Node<Product> node) {
+    String code = node.info.getCode();
+    while (node.left != null) {
+      code = node.left.info.getCode();
+      node = node.left;
+    }
+    return code;
   }
 }

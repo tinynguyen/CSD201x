@@ -5,11 +5,13 @@
  */
 package util;
 
+import java.io.Serializable;
+
 /**
  *
  * @author tiny
  */
-public class Node<T> {
+public class Node<T> implements Serializable {
 
   public T info;
   public Node<T> left, right;

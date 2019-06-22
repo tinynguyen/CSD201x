@@ -5,13 +5,14 @@
  */
 package util;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
  *
  * @author tiny
  */
-public class MyQueue {
+public class MyQueue implements Serializable {
 
   LinkedList a = null;
 
