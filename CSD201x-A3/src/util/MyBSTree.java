@@ -25,7 +25,7 @@ public class MyBSTree {
 
   // Visit a node of a tree -> output information of visited node
   public void visit(Node<Product> p) {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+    System.out.println(p.info.toString());
   }
 
   // Return true if tree is empty otherwise return false
@@ -38,21 +38,18 @@ public class MyBSTree {
     if (root == null) {
       return;
     }
-    Stack<Node<Product>> s = new Stack<Node<Product>>();
+    Stack<Node<Product>> stack = new Stack<Node<Product>>();
     Node<Product> curr = root;
 
     // Traverse the tree 
     System.out.println(String.format("%-10s%-20s%-10s%-10s%-10s", "Code", "Name", "Quantity", "Saled", "Price"));
-    while (curr != null || s.size() > 0) {
+    while (curr != null || stack.size() > 0) {
       while (curr != null) {
-        s.push(curr);
+        stack.push(curr);
         curr = curr.left;
       }
-
-      curr = s.pop();
-
+      curr = stack.pop();
       System.out.println(curr.info.toString());
-
       curr = curr.right;
     }
 
@@ -62,10 +59,25 @@ public class MyBSTree {
   public int count() {
     throw new UnsupportedOperationException("Remove this line and implement your code here!");
   }
-  // Breadth-first traverse a tree
 
+  // Breadth-first traverse a tree
   public void BFT() {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+    MyQueue queue = new MyQueue();
+    queue.enqueue(root);
+    while (!queue.isEmpty()) {
+      Node<Product> tempNode = (Node<Product>) queue.dequeue();
+      System.out.println(tempNode.info.toString());
+
+      /*Enqueue left child */
+      if (tempNode.left != null) {
+        queue.enqueue(tempNode.left);
+      }
+
+      /*Enqueue right child */
+      if (tempNode.right != null) {
+        queue.enqueue(tempNode.right);
+      }
+    }
   }
 
   // Insert a new Product to a tree

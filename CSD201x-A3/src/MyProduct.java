@@ -3,6 +3,7 @@ import entity.Product;
 import java.util.Scanner;
 import model.Validation;
 import util.MyBSTree;
+import util.Node;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -74,12 +75,32 @@ public class MyProduct {
   // BFT a tree
 
   public void BFT() {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+    tree.BFT();
   }
   // Search a product by product code
 
   public void search() {
-    throw new UnsupportedOperationException("Remove this line and implement your code here!");
+    boolean validate = true;
+    code = "";
+    Node<Product> p = null;
+    System.out.print("Product code to search: ");
+    while (validate) {
+      code = s.nextLine();
+      if (Validation.validateString(code)) {
+        p = tree.search(code);
+        validate = false;
+      } else {
+        System.err.println("Code must be required!");
+        System.err.print("Enter product code again: ");
+
+      }
+    }
+    if (p != null) {
+      System.out.println("Information of product code " + p.info.getCode());
+      tree.visit(p);
+    }else {
+      System.err.println("The product code " + p.info.getCode() + " is not exist!");
+    }
   }
   //1.5 delete a product by product code
 
