@@ -16,7 +16,7 @@ import util.Node;
  *
  * @author tiny
  */
-public class MyProduct implements Serializable{
+public class MyProduct implements Serializable {
 
   Scanner s = new Scanner(System.in);
 
@@ -43,26 +43,21 @@ public class MyProduct implements Serializable{
     while (validate) {
       code = s.nextLine();
       if (Validation.validateString(code)) {
-        if (tree.checkCodeUnique(code)) {
-          System.out.print("Product name: ");
-          while (validate) {
-            name = s.nextLine();
-            if (Validation.validateString(name)) {
-              System.out.print("Quantity: ");
-              quantity = Validation.validateIntNumber(quantity);
-              System.out.print("Saled: ");
-              saled = Validation.validateIntNumber(saled);
-              System.out.print("Price: ");
-              price = Validation.validateDoubleNumber(price);
-              validate = false;
-            } else {
-              System.err.println("Name must be required!");
-              System.err.print("Enter product name again: ");
-            }
+        System.out.print("Product name: ");
+        while (validate) {
+          name = s.nextLine();
+          if (Validation.validateString(name)) {
+            System.out.print("Quantity: ");
+            quantity = Validation.validateIntNumber(quantity);
+            System.out.print("Saled: ");
+            saled = Validation.validateIntNumber(saled);
+            System.out.print("Price: ");
+            price = Validation.validateDoubleNumber(price);
+            validate = false;
+          } else {
+            System.err.println("Name must be required!");
+            System.err.print("Enter product name again: ");
           }
-        } else {
-          System.err.println("Product code must be unique");
-          System.out.print("Product code: ");
         }
       } else {
         System.err.println("Code must be required!");
@@ -77,7 +72,7 @@ public class MyProduct implements Serializable{
     tree.inOrder();
   }
 
-// BFT a tree
+  // BFT a tree
   public void BFT() {
     tree.BFT();
   }
@@ -103,7 +98,7 @@ public class MyProduct implements Serializable{
       System.out.println("Information of product code " + p.info.getCode());
       tree.visit(p);
     } else {
-      System.err.println("The product code " + p.info.getCode() + " is not exist!");
+      System.err.println("The product code " + code + " is not exist!");
     }
   }
 
@@ -133,7 +128,7 @@ public class MyProduct implements Serializable{
   public int size() {
     return tree.count();
   }
-  
+
   public void save() {
     ProductData.saveData(tree);
   }

@@ -71,6 +71,7 @@ public class MyBSTree implements Serializable {
     MyQueue queue = new MyQueue();
     this.balance();
     queue.enqueue(root);
+    System.out.println(String.format("%-10s%-20s%-10s%-10s%-10s", "Code", "Name", "Quantity", "Saled", "Price"));
     while (!queue.isEmpty()) {
       Node<Product> tmp = (Node<Product>) queue.dequeue();
       System.out.println(tmp.info.toString());
@@ -90,7 +91,6 @@ public class MyBSTree implements Serializable {
   // Insert a new Product to a tree
   public void insert(Product product) {
     if (root == null) {
-      System.out.println(" The product code " + product.getCode() + " already exists, no insertion");
       root = new Node<>(product);
       return;
     }
@@ -99,7 +99,7 @@ public class MyBSTree implements Serializable {
     f = null;
     while (p != null) {
       if (p.info.getCode().equalsIgnoreCase(product.getCode())) {
-        System.out.println(" The product code " + product.getCode() + " already exists, no insertion");
+        System.err.println("The product code " + product.getCode() + " already exists, no insertion");
         return;
       }
       f = p;
@@ -111,10 +111,8 @@ public class MyBSTree implements Serializable {
     }
 
     if (product.getCode().compareToIgnoreCase(f.info.getCode()) < 0) {
-      System.out.println(" The product code " + product.getCode() + " already exists, no insertion");
       f.left = new Node(product);
     } else {
-      System.out.println(" The product code " + product.getCode() + " already exists, no insertion");
       f.right = new Node(product);
     }
   }
@@ -173,17 +171,25 @@ public class MyBSTree implements Serializable {
 
   // Delete a node by a given product code
   public void delete(String code) {
-    root = deleteRec(root, code);
+    Node<Product> checkCode = this.search(code);
+    if (checkCode != null) {
+      int beforeDelete = this.size(root);
+      root = deleteRec(root, code);
+      int afterDelete = this.size(root);
+      if (beforeDelete == (afterDelete + 1)) {
+        System.out.println("The product code " + code + " is deleted");
+        this.inOrder();
+      }
+    } else {
+      System.err.println("The product code " + code + " is not exist!");
+    }
 
-  }
-
-  public boolean checkCodeUnique(String code) {
-    return true;
   }
 
   // Delete a node and insert a new node
   private Node<Product> deleteRec(Node<Product> root, String code) {
     if (root == null) {
+      System.err.println("Products list is empty...");
       return root;
     }
     if (code.compareToIgnoreCase(root.info.getCode()) < 0) {
@@ -191,7 +197,7 @@ public class MyBSTree implements Serializable {
     } else if (code.compareToIgnoreCase(root.info.getCode()) > 0) {
       root.right = deleteRec(root.right, code);
     } else {
-      // node with only one child or no child 
+      // Node with only one child or no child 
       if (root.left == null) {
         return root.right;
       } else if (root.right == null) {
