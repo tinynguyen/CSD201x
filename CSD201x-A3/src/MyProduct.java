@@ -138,7 +138,7 @@ public class MyProduct implements Serializable {
   public void findByPrice() {
     boolean validate = true;
     price = 0;
-    System.out.println("Enter price you want to find: ");
+    System.out.print("Enter price you want to find: ");
     while(validate)
     {
       price = Validation.validateDoubleNumber(price);

@@ -244,6 +244,12 @@ public class MyBSTree implements Serializable {
         tmp.add(p);
       }
     }
+    if (tmp != null) {
+      PriceBSTree priceTree = new PriceBSTree();
+      priceTree.addTree(tmp);
+      System.out.println(String.format("%-10s%-20s%-10s%-10s%-10s", "Code", "Name", "Quantity", "Saled", "Price"));
+      priceTree.inOrder(priceTree.root);
+    }
   }
 
   private void selectionSort(List<Node<Product>> list) {
