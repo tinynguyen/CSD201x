@@ -69,6 +69,9 @@ public class Main {
         case 8:
           p.save();
           break;
+        case 9:
+          p.findByPrice();
+          break;
         case 0:
           running = false;
           break;

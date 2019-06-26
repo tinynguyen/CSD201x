@@ -129,7 +129,21 @@ public class MyProduct implements Serializable {
     return tree.count();
   }
 
+  // Save all product data
   public void save() {
     ProductData.saveData(tree);
+  }
+
+  // Find product by price
+  public void findByPrice() {
+    boolean validate = true;
+    price = 0;
+    System.out.println("Enter price you want to find: ");
+    while(validate)
+    {
+      price = Validation.validateDoubleNumber(price);
+      validate = false;
+    }
+    tree.findByPrice(price);
   }
 }

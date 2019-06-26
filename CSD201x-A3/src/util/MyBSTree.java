@@ -99,7 +99,7 @@ public class MyBSTree implements Serializable {
     f = null;
     while (p != null) {
       if (p.info.getCode().equalsIgnoreCase(product.getCode())) {
-        System.err.println("The product code " + product.getCode() + " already exists, no insertion");
+        System.err.println("The product code " + product.getCode() + " already exists, no insertion!");
         return;
       }
       f = p;
@@ -177,7 +177,7 @@ public class MyBSTree implements Serializable {
       root = deleteRec(root, code);
       int afterDelete = this.size(root);
       if (beforeDelete == (afterDelete + 1)) {
-        System.out.println("The product code " + code + " is deleted");
+        System.out.println("The product code " + code + " is deleted!");
         this.inOrder();
       }
     } else {
@@ -229,4 +229,38 @@ public class MyBSTree implements Serializable {
       return size(root.left) + 1 + size(root.right);
     }
   }
+
+  public void findByPrice(double price) {
+    List<Node<Product>> list = new ArrayList<>();
+    buildArray(list, root);
+    if (list == null) {
+      System.err.println("Products list is empty...");
+      return;
+    }
+    List<Node<Product>> tmp = new ArrayList<>();
+    selectionSort(list);
+    for (Node<Product> p : list) {
+      if (p.info.getPrice() >= price) {
+        tmp.add(p);
+      }
+    }
+  }
+
+  private void selectionSort(List<Node<Product>> list) {
+    int min;
+    for (int i = 0; i < list.size() - 1; i++) {
+      min = i;
+      for (int j = i + 1; j < list.size(); j++) {
+        if (list.get(j).info.getPrice() < list.get(min).info.getPrice()) {
+          min = j;
+        }
+      }
+      if (min != i) {
+        Node<Product> tmp = list.get(i);
+        list.set(i, list.get(min));
+        list.set(min, tmp);
+      }
+    }
+  }
+
 }
