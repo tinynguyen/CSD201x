@@ -41,15 +41,22 @@ public class PriceBSTree {
   public void inOrder(Node root) {
     if (root != null) {
       inOrder(root.left);
-      System.out.println(root.info.toString());
+      System.out.println(root.info.toString() + String.format("%-10s", this.getHeight(root)));
       inOrder(root.right);
     }
   }
 
-  public void addTree (List<Node<Product>> list) {
+  public void addTree(List<Node<Product>> list) {
     for (int i = 0; i < list.size(); i++) {
       insert(list.get(i).info);
     }
+  }
 
+  public int getHeight(Node<Product> root) {
+    if (root == null) {
+      return -1;
+    } else {
+      return 1 + Math.max(getHeight(root.left), getHeight(root.right));
+    }
   }
 }
