@@ -29,7 +29,7 @@ public class Main {
       System.out.println("| 6. Simple balancing                |");
       System.out.println("| 7. Count number of products        |");
       System.out.println("| 8. Save all products               |");
-      System.out.println("| 9. Search by a product price               |");
+      System.out.println("| 9. Search by a product price       |");
       System.out.println("| 0. Exit                            |");
       System.out.println("|------------------------------------|");
       System.out.print("  Your choice: ".toUpperCase());
